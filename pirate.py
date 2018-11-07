@@ -16,11 +16,29 @@ class Pirate:
         #put parameters into properties
     def name(self):
         #this function will figure out and return the name
-        x = random.randint(0,len(self.firstList)-1)
-        y = random.randint(0,len(self.secondList)-1)
-        z = random.randint(0,len(self.thirdList)-1)
-        pirateName = self.firstList[x] + " " + self.secondList[y] + " " + self.thirdList[z]
+        x = ord(self.first[0].upper())-65
+        y = ord(self.second[0].upper())-65
+        z = ord(self.third[0].upper())-65
+        pirateName = self.firstList[x % len(self.firstList)] + " " + self.secondList[y % len(self.secondList)] + " " + self.thirdList[z % len(self.thirdList)]
         return pirateName
+
+def addnew():
+    #get values out of text boxes
+    fn = fBox.get()
+    sn = sBox.get()
+    tn = tBox.get()
+    #create the pirate instance and initialize the values
+    mypirate = Pirate(fn, sn, tn)
+    #generate name
+    newname = mypirate.name()
+    #show name
+    output.config(text=newname, compound=CENTER)
+    #erase text boxes
+    fBox.delete(0,"end")
+    sBox.delete(0,"end")
+    tBox.delete(0,"end")
+
+    
 myfont="Arial 14 bold"
 root = Tk()
 #register image
@@ -35,7 +53,7 @@ tLabel =Label(root, text="Third name:", font=myfont)
 fBox= Entry(root, font=myfont)
 sBox= Entry(root, font=myfont)
 tBox= Entry(root, font=myfont)
-btn= Button(root, text ="Show Me My Name!", font="Arial 16 bold", bg="#eeddff")
+btn= Button(root, text ="Show Me My Name!", font="Arial 16 bold", bg="#eeddff", command=addnew)
 output = Label(root, font="Gabriola 26", image=banner)
 
 
